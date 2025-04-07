@@ -1,0 +1,36 @@
+<div class="form-container">
+  <h2>Форма фігури</h2>
+  <form [formGroup]="shapeForm" (ngSubmit)="calculate()">
+    <label for="shapeType">Фігура:</label>
+    <select id="shapeType" formControlName="shapeType">
+      <option value="triangle">Трикутник</option>
+      <option value="disk">Круг</option>
+    </select>
+
+    <div *ngIf="shapeType === 'triangle'" class="shape-group">
+      <label for="sideA">Сторона A:</label>
+      <input id="sideA" type="number" formControlName="sideA" />
+
+      <label for="sideB">Сторона B:</label>
+      <input id="sideB" type="number" formControlName="sideB" />
+
+      <label for="sideC">Сторона C:</label>
+      <input id="sideC" type="number" formControlName="sideC" />
+    </div>
+
+    <div *ngIf="shapeType === 'disk'" class="shape-group">
+      <label for="radius">Радіус:</label>
+      <input id="radius" type="number" formControlName="radius" />
+    </div>
+
+    <label for="quantity">Кількість фігур:</label>
+    <input id="quantity" type="number" formControlName="quantity" min="1" />
+
+    <button type="submit" [disabled]="shapeForm.invalid">Обчислити</button>
+  </form>
+
+  <div *ngIf="perimeter !== null && area !== null" class="results-container">
+    <p><strong>Периметр:</strong> {{ perimeter * quantity }}</p>
+    <p><strong>Площа:</strong> {{ area * quantity }}</p>
+  </div>
+</div>
